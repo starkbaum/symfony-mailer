@@ -6,8 +6,12 @@ use App\Entity\User;
 use App\Form\Model\UserRegistrationFormModel;
 use App\Form\UserRegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -37,13 +41,25 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new \Exception('Will be intercepted before getting here');
+        throw new Exception('Will be intercepted before getting here');
     }
 
     /**
      * @Route("/register", name="app_register")
+     * @param MailerInterface $mailer
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param LoginFormAuthenticator $formAuthenticator
+     * @return Response|null
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $formAuthenticator)
+    public function register(
+        MailerInterface $mailer,
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        LoginFormAuthenticator $formAuthenticator
+    )
     {
         $form = $this->createForm(UserRegistrationFormType::class);
         $form->handleRequest($request);
@@ -68,6 +84,14 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
+            $email = (new Email())
+                ->from('alienmailer@example.com')
+                ->to($user->getEmail())
+                ->subject('Welcome to the SpaceBar!')
+                ->text("Nice to meet you {$user->getFirstName()} ❤️");
+
+            $mailer->send($email);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
