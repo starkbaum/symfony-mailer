@@ -140,6 +140,9 @@
     "league/flysystem-cached-adapter": {
         "version": "1.0.9"
     },
+    "league/html-to-markdown": {
+        "version": "4.10.0"
+    },
     "liip/imagine-bundle": {
         "version": "1.8",
         "recipe": {
