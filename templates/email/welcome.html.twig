@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Welcome to the Space Bar!</title>
+    <title>{{ email.subject }}</title>
     <style>
         body {
             margin: 0;
@@ -62,7 +62,7 @@
             </a>
         </div>
         <div class="content">
-            <h1 class="text-center">Nice to meet you %name%!</h1>
+            <h1 class="text-center">Nice to meet you {{ email.toName }}!</h1>
             <p class="block">
                 Welcome to <strong>the Space Bar</strong>, we can't wait to read what you have to write.
                 Get started on your first article and connect with the space bar community.
