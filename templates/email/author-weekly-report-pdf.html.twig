@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    {{ encore_entry_link_tags('app') }}
+    {% for path in encore_entry_css_files('app') %}
+        <link rel="stylesheet" href="{{ absolute_url(path) }}">
+    {% endfor %}
+
 </head>
 <body style="background-color: #fff">
 <div class="container">
