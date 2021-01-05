@@ -25,6 +25,7 @@
         "symfony/form": "^4.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/mailer": "4.3.*",
+        "symfony/messenger": "4.3.*",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.0",
         "symfony/sendgrid-mailer": "4.3.*",
