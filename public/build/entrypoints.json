@@ -49,6 +49,16 @@
       "css": [
         "/build/login.css"
       ]
+    },
+    "email": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~email.js"
+      ],
+      "css": [
+        "/build/vendors~email.css",
+        "/build/email.css"
+      ]
     }
   }
 }
