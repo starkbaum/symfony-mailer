@@ -23,5 +23,11 @@ class SecurityControllerTest extends WebTestCase
 
         $client->submit($form);
         $this->assertResponseRedirects();
+
+        /* Symfony 4.4:
+        $this->assertEmailCount(1);
+        $email = $this->getMailerMessage(0);
+        $this->assertEmailHeaderSame($email, 'To', 'fabien@symfony.com');
+        */
     }
 }
